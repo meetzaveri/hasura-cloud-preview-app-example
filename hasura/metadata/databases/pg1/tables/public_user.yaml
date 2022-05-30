@@ -1,0 +1,66 @@
+table:
+  schema: public
+  name: user
+array_relationships:
+  - name: cart_items
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: cart_item
+  - name: orders
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: order
+remote_relationships:
+  - definition:
+      remote_field:
+        todos:
+          arguments:
+            user_id: $id
+      hasura_fields:
+        - id
+      remote_schema: todo-remote-schema
+    name: todos
+select_permissions:
+  - role: superuser
+    permission:
+      columns:
+        - display_name
+        - id
+        - username
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+  - role: user
+    permission:
+      columns:
+        - display_name
+        - id
+        - username
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+update_permissions:
+  - role: superuser
+    permission:
+      columns:
+        - display_name
+        - username
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null
+  - role: user
+    permission:
+      columns:
+        - display_name
+        - username
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null

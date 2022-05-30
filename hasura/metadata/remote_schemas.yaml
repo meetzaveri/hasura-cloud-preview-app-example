@@ -1,0 +1,57 @@
+- name: order-remote-schema
+  definition:
+    url_from_env: REMOTE_SCHEMA3_URL
+    timeout_seconds: 60
+    customization:
+      type_names:
+        prefix: order_remote_schema_
+        mapping: {}
+      root_fields_namespace: order_remote_schema
+  comment: ""
+- name: todo-remote-schema
+  definition:
+    url_from_env: REMOTE_SCHEMA1_URL
+    timeout_seconds: 60
+    customization:
+      type_names:
+        prefix: todo_remote_schema_
+        mapping: {}
+  comment: ""
+  permissions:
+    - role: user
+      definition:
+        schema: |-
+          schema  { query: Query mutation: Mutation }
+
+          type Mutation { create_todo(todo: TodoCreateInput!, delay: Float): Todo!
+            delete_todo(id: Int!, delay: Float): Todo
+            update_todo(id: Int!, todo: TodoUpdateInput!, delay: Float): Todo
+          }
+
+          type Query { example: String
+            todo_by_id(id: Int, delay: Float): Todo
+            todos(user_id: Int @preset(value: "X-Hasura-User-Id"), delay: Float): [Todo!]!
+          }
+
+          type Todo { id: Int!
+            task: String!
+            user_id: Int!
+          }
+
+          input TodoCreateInput {task: String!
+            user_id: Int! @preset(value: "X-Hasura-User-Id")
+          }
+
+          input TodoUpdateInput {done: Boolean
+            task: String
+          }
+- name: user-remote-schema
+  definition:
+    url_from_env: REMOTE_SCHEMA2_URL
+    timeout_seconds: 60
+    customization:
+      type_names:
+        prefix: user_remote_schema_
+        mapping: {}
+      root_fields_namespace: user_remote_schema
+  comment: ""
