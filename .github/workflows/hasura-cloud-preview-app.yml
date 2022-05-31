@@ -21,8 +21,7 @@ jobs:
             PG_ENV_VARS_FOR_HASURA=PG_DB_URL_1
           hasuraProjectDirectoryPath: hasura
           hasuraEnv: |
-            ENV_VAR_1=value_1
-            PG_DATABASE_URL=PG_DB_URL_1
+            PG_DATABASE_URL=${{secrets.POSTGRES_SERVER_CONNECTION_URI}}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           HASURA_CLOUD_ACCESS_TOKEN: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}}
