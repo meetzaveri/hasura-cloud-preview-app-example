@@ -20,7 +20,7 @@ jobs:
             POSTGRES_SERVER_CONNECTION_URI=${{secrets.POSTGRES_SERVER_CONNECTION_URI}}
             PG_ENV_VARS_FOR_HASURA=PG_DATABASE_URL_1
           hasuraProjectDirectoryPath: hasura
-          hasuraCloudGraphQLEndpoint: https://brief-jaguar-90.hasura.app/v1/graphql
+          # hasuraCloudGraphQLEndpoint: https://brief-jaguar-90.hasura.app/v1/graphql
           hasuraEnv: |
             PG_DATABASE_URL=${{secrets.POSTGRES_SERVER_CONNECTION_URI}}
         env:
