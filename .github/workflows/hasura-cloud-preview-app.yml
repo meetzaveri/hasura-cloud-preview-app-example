@@ -15,12 +15,12 @@ jobs:
         uses: hasura/hasura-cloud-preview-apps@ram/db-ssl-fix
         id: hasura_cloud_preview
         with:
-          name: "repo-name-${{github.env.GITHUB_HEAD_REF}}${{github.event.number}}"
+          name: "repo-name-${{github.event.number}}"
           postgresDBConfig: |
             POSTGRES_SERVER_CONNECTION_URI=${{secrets.POSTGRES_SERVER_CONNECTION_URI}}
             PG_ENV_VARS_FOR_HASURA=PG_DATABASE_URL_1
           hasuraProjectDirectoryPath: hasura
-          hasuraCloudGraphQLEndpoint: https://repo-name-${{github.env.GITHUB_HEAD_REF}}${{github.event.number}}.hasura.app/v1/graphql
+          hasuraCloudGraphQLEndpoint: https://repo-name-${{github.event.number}}.hasura.app/v1/graphql
           hasuraEnv: |
             PG_DATABASE_URL=${{secrets.POSTGRES_SERVER_CONNECTION_URI}}
         env:
