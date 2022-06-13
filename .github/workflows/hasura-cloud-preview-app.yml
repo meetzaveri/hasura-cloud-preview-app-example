@@ -20,7 +20,7 @@ jobs:
             POSTGRES_SERVER_CONNECTION_URI=${{secrets.POSTGRES_SERVER_CONNECTION_URI}}
             PG_ENV_VARS_FOR_HASURA=PG_DATABASE_URL_1
           hasuraProjectDirectoryPath: hasura
-          hasuraCloudGraphQLEndpoint: https://repo-name-${{github.event.number}}.hasura.app/v1/graphql
+          hasuraCloudGraphQLEndpoint: https://liberal-catfish-49.hasura.app/v1/graphql
           hasuraEnv: |
             PG_DATABASE_URL=${{secrets.POSTGRES_SERVER_CONNECTION_URI}}
         env:
