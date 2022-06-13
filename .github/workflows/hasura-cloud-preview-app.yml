@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Hasura Cloud Preview Apps
-        uses: hasura/hasura-cloud-preview-apps@ram/db-ssl-fix
+        uses: hasura/hasura-cloud-preview-apps
         id: hasura_cloud_preview
         with:
           name: "repo-name-${{github.event.number}}"
