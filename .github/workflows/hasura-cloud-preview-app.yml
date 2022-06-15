@@ -19,7 +19,7 @@ jobs:
           postgresDBConfig: |
             POSTGRES_SERVER_CONNECTION_URI=${{secrets.POSTGRES_SERVER_CONNECTION_URI}}
             PG_ENV_VARS_FOR_HASURA=PG_DB_URL_1,PG_DB_URL_2
-          hasuraProjectDirectoryPath: hasura-no-data
+          hasuraProjectDirectoryPath: hasura-data-copy
           region: us-west-1
           tier: cloud_free
           # hasuraCloudGraphQLEndpoint: https://liberal-catfish-49.hasura.app/v1/graphql
