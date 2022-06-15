@@ -15,7 +15,7 @@ jobs:
         uses: hasura/hasura-cloud-preview-apps@v0.1.6
         id: hasura_cloud_preview
         with:
-          name: "preview-app-${{github.event.number}}"
+          name: "preview-app-${{github.event.number}}-highskill"
           postgresDBConfig: |
             POSTGRES_SERVER_CONNECTION_URI=${{secrets.POSTGRES_SERVER_CONNECTION_URI}}
             PG_ENV_VARS_FOR_HASURA=PG_DB_URL_1,PG_DB_URL_2
