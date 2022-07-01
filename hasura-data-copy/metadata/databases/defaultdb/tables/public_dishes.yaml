@@ -1,0 +1,11 @@
+table:
+  name: dishes
+  schema: public
+array_relationships:
+- name: order_items
+  using:
+    foreign_key_constraint_on:
+      column: dish
+      table:
+        name: order_items
+        schema: public

@@ -1,0 +1,59 @@
+table:
+  schema: public
+  name: product
+array_relationships:
+  - name: cart_items
+    using:
+      foreign_key_constraint_on:
+        column: product_id
+        table:
+          schema: public
+          name: cart_item
+  - name: order_items
+    using:
+      foreign_key_constraint_on:
+        column: product_id
+        table:
+          schema: public
+          name: order_item
+select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+        - description
+        - id
+        - name
+      filter:
+        in_catalog:
+          _eq: true
+      allow_aggregations: true
+  - role: superuser
+    permission:
+      columns:
+        - description
+        - id
+        - name
+      filter:
+        _or:
+          - in_catalog:
+              _eq: true
+          - order_items:
+              order:
+                id:
+                  _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - description
+        - id
+        - name
+      filter:
+        _or:
+          - in_catalog:
+              _eq: true
+          - order_items:
+              order:
+                id:
+                  _eq: X-Hasura-User-Id
+      allow_aggregations: true

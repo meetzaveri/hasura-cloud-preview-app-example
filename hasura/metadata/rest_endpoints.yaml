@@ -1,0 +1,9 @@
+- definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Insert Cart Activity Log
+  url: cartactivitylog
+  methods:
+    - POST
+  name: Insert Cart Activity Log
+  comment: Used to insert cart activity logs

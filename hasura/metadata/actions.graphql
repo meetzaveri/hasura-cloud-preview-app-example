@@ -1,0 +1,51 @@
+type Query {
+  auth: CurrentAuthState!
+}
+
+type Mutation {
+  auth_login(
+    username: String!
+    password: String!
+  ): NewAuthState!
+}
+
+type Mutation {
+  auth_logout: CurrentAuthState!
+}
+
+type Mutation {
+  auth_refresh: NewAuthState!
+}
+
+type Mutation {
+  auth_restore: NewAuthState
+}
+
+type AuthUser {
+  id: Int!
+  username: String!
+  display_name: String!
+  is_superuser: Boolean!
+}
+
+type NewAuthState {
+  token: String!
+  user: AuthUser!
+}
+
+type CurrentAuthState {
+  user: AuthUser
+}
+
+type TestPayload {
+  sample: SamplePayload!
+}
+
+type SamplePayload {
+  json: JSONPayload!
+}
+
+type JSONPayload {
+  payload: Boolean
+}
+

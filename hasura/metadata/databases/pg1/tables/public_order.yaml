@@ -1,0 +1,40 @@
+table:
+  schema: public
+  name: order
+array_relationships:
+  - name: order_items
+    using:
+      foreign_key_constraint_on:
+        column: order_id
+        table:
+          schema: public
+          name: order_item
+remote_relationships:
+  - definition:
+      remote_field:
+        user:
+          arguments:
+            id: $user_id
+      hasura_fields:
+        - user_id
+      remote_schema: user-remote-schema
+    name: user
+select_permissions:
+  - role: superuser
+    permission:
+      columns:
+        - created_at
+        - id
+        - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+  - role: user
+    permission:
+      columns:
+        - created_at
+        - id
+        - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id

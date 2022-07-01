@@ -1,0 +1,24 @@
+table:
+  schema: public
+  name: cart_activity_log
+remote_relationships:
+  - definition:
+      to_source:
+        relationship_type: object
+        source: pg1
+        table:
+          schema: public
+          name: product
+        field_mapping:
+          product_id: id
+    name: product
+  - definition:
+      to_source:
+        relationship_type: object
+        source: pg1
+        table:
+          schema: public
+          name: user
+        field_mapping:
+          user_id: id
+    name: user
