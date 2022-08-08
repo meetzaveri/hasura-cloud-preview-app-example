@@ -5,8 +5,6 @@ on: # rebuild any PRs and main branch changes
     branches:
       - main
 
-env: GITHUB_REPOSITORY:"https://github.com/meetzaveri/hasura-cloud-preview-app-example"
-
 jobs:
   hasura-cloud-preview:
     runs-on: ubuntu-latest
@@ -36,7 +34,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           id: preview_app_comment
           number: ${{github.event.number}}
-          repository: ${{env.GITHUB_REPOSITORY}}
+          repository: "https://github.com/meetzaveri/hasura-cloud-preview-app-example"
           message: |
             Console URL available at ${{steps.hasura_cloud_preview.outputs.consoleURL}}
             GraphQL Endpoint available at ${{steps.hasura_cloud_preview.outputs.graphQLEndpoint}}
