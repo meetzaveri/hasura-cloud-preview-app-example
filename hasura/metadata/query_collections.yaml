@@ -1,0 +1,10 @@
+- name: allowed-queries
+  definition:
+    queries:
+      - name: Insert Cart Activity Log
+        query: |
+          mutation InsertCartActivityLog ($object: cart_activity_log_insert_input!) {
+          	insert_cart_activity_log_one(object: $object, on_conflict: {constraint:cart_activity_log_event_id_key}) {
+          		id
+          	}
+          }

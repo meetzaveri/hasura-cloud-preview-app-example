@@ -1,0 +1,29 @@
+- name: pg1
+  kind: postgres
+  configuration:
+    connection_info:
+      use_prepared_statements: false
+      database_url:
+        from_env: PG1_DATABASE_URL
+      isolation_level: read-committed
+  customization:
+    type_names:
+      suffix: null
+      prefix: pg1_
+    root_fields: null
+  tables: "!include pg1/tables/tables.yaml"
+  functions: "!include pg1/functions/functions.yaml"
+- name: pg2
+  kind: postgres
+  configuration:
+    connection_info:
+      use_prepared_statements: false
+      database_url:
+        from_env: PG2_DATABASE_URL
+      isolation_level: read-committed
+  customization:
+    type_names:
+      suffix: null
+      prefix: pg2_
+    root_fields: null
+  tables: "!include pg2/tables/tables.yaml"
