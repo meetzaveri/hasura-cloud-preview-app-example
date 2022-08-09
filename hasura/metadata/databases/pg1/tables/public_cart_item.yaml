@@ -1,0 +1,116 @@
+table:
+  schema: public
+  name: cart_item
+object_relationships:
+  - name: product
+    using:
+      foreign_key_constraint_on: product_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+insert_permissions:
+  - role: superuser
+    permission:
+      check:
+        _and:
+          - user_id:
+              _eq: X-Hasura-User-Id
+          - product:
+              in_catalog:
+                _eq: true
+      set:
+        user_id: x-hasura-User-Id
+      columns:
+        - product_id
+        - quantity
+      backend_only: false
+  - role: user
+    permission:
+      check:
+        _and:
+          - user_id:
+              _eq: X-Hasura-User-Id
+          - product:
+              in_catalog:
+                _eq: true
+      set:
+        user_id: x-hasura-User-Id
+      columns:
+        - product_id
+        - quantity
+      backend_only: false
+select_permissions:
+  - role: superuser
+    permission:
+      columns:
+        - created_at
+        - id
+        - product_id
+        - quantity
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  - role: user
+    permission:
+      columns:
+        - created_at
+        - id
+        - product_id
+        - quantity
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true
+update_permissions:
+  - role: superuser
+    permission:
+      columns:
+        - quantity
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+  - role: user
+    permission:
+      columns:
+        - quantity
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+delete_permissions:
+  - role: superuser
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+  - role: user
+    permission:
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+event_triggers:
+  - name: log_cart_activity
+    definition:
+      enable_manual: false
+      insert:
+        columns: '*'
+      delete:
+        columns: '*'
+      update:
+        columns: '*'
+    retry_conf:
+      num_retries: 0
+      interval_sec: 10
+      timeout_sec: 60
+    webhook: http://localhost:8080/api/rest/cartactivitylog
+    headers:
+      - value: secret
+        name: x-hasura-admin-secret
+    request_transform:
+      body: "{\n  \"object\": {\n    \"operation_type\": {{$body.event.op}},\n    \"product_id\": {{ $body.event.data.new?.product_id ?? $body.event.data.old.product_id }}, \n    \"quantity\": {{ $body.event.data.new?.quantity ?? $body.event.data.old.quantity }}, \n    \"user_id\": {{ $body.event.data.new?.user_id ?? $body.event.data.old.user_id }},\n    \"event_id\": {{ $body.id }}\n  }\n}\n"
+      method: POST
+      version: 1
+      query_params: {}
+      template_engine: Kriti
