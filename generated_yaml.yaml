@@ -4,6 +4,7 @@ on: # rebuild any PRs and main branch changes
     push:
         branches:
             - main
+
 jobs:
     hasura-cloud-preview:
         runs-on: ubuntu-latest
@@ -19,7 +20,7 @@ jobs:
                   region: us-west-1
                   tier: cloud_free
                   hasuraEnv: |
-                      PG_DATABASE_URL={{secrets.POSTGRES_SERVER_CONNECTION_URI}}
+
               env:
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
                   HASURA_CLOUD_ACCESS_TOKEN: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}}
