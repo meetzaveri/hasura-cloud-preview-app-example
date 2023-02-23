@@ -5,8 +5,8 @@ on: # rebuild any PRs and main branch changes
         branches:
             - main
 env:
-	GITHUB_REPOSITORY: https://github.com/meetzaveri/hasura-cloud-preview-app-example
-	
+    GITHUB_REPOSITORY: "https://github.com/meetzaveri/hasura-cloud-preview-app-example"
+
 jobs:
     hasura-cloud-preview:
         runs-on: ubuntu-latest
