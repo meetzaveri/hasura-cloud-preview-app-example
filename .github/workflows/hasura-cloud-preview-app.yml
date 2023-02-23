@@ -14,7 +14,7 @@ jobs:
                   name: "preview-meetzaveri / hasura-cloud-preview-app-example-${{github.env.GITHUB_HEAD_REF}}${{github.event.number}}"
                   postgresDBConfig: |
                       POSTGRES_SERVER_CONNECTION_URI=${{secrets.POSTGRES_SERVER_CONNECTION_URI}}
-                      PG_ENV_VARS_FOR_HASURA=
+                      PG_ENV_VARS_FOR_HASURA=PG_DB_URL_1,PG_DB_URL_2
                   hasuraProjectDirectoryPath: /hasura-data
                   region: us-west-1
                   tier: cloud_free
