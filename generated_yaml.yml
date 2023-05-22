@@ -4,8 +4,6 @@ on: # rebuild any PRs and main branch changes
   push:
     branches:
       - main
-env:
-  GITHUB_REPOSITORY: "meetzaveri/hasura-cloud-preview-app-example"
 
 jobs:
   hasura-cloud-preview:
@@ -14,11 +12,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: hasura/hasura-cloud-preview-apps@v0.1.9
         with:
-          name: "preview-app-${{github.event.number}}"
+          name: "preview-meetzaveri / hasura-cloud-preview-app-example-${{github.env.GITHUB_HEAD_REF}}${{github.event.number}}"
           postgresDBConfig: |
             POSTGRES_SERVER_CONNECTION_URI=${{secrets.POSTGRES_SERVER_CONNECTION_URI}}
-            PG_ENV_VARS_FOR_HASURA=PG_DATABASE_URL,PG_DB_URL_2
-          hasuraProjectDirectoryPath: /hasura-data
+            PG_ENV_VARS_FOR_HASURA=
+          hasuraProjectDirectoryPath: /hasura
           region: us-west-1
           tier: cloud_free
           hasuraEnv: |
