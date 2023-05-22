@@ -1,0 +1,66 @@
+actions:
+  - name: auth
+    definition:
+      kind: ""
+      handler: '{{ACTION_HANDLER_BASE_URL}}/query/auth'
+    permissions:
+      - role: anonymous
+      - role: user
+      - role: superuser
+    comment: Current auth state for this user
+  - name: auth_login
+    definition:
+      kind: synchronous
+      handler: '{{ACTION_HANDLER_BASE_URL}}/mutation/auth/login'
+      request_transform:
+        body: |-
+          {
+            "username": {{$body.input.username}},
+            "password": {{$body.input.password}}
+          }
+        version: 1
+        template_engine: Kriti
+    permissions:
+      - role: superuser
+      - role: user
+      - role: anonymous
+    comment: Authenticate a user and initiate a session
+  - name: auth_logout
+    definition:
+      kind: synchronous
+      handler: '{{ACTION_HANDLER_BASE_URL}}/mutation/auth/logout'
+    permissions:
+      - role: user
+      - role: superuser
+    comment: Destroy the current session
+  - name: auth_refresh
+    definition:
+      kind: synchronous
+      handler: '{{ACTION_HANDLER_BASE_URL}}/mutation/auth/refresh'
+      forward_client_headers: true
+    permissions:
+      - role: anonymous
+      - role: superuser
+      - role: user
+    comment: Refresh the current session, errors if session has been invalidated
+  - name: auth_restore
+    definition:
+      kind: synchronous
+      handler: '{{ACTION_HANDLER_BASE_URL}}/mutation/auth/restore'
+      forward_client_headers: true
+    permissions:
+      - role: anonymous
+      - role: superuser
+      - role: user
+    comment: Restore the current session, if any. Used on page load. Does not error on failure
+custom_types:
+  enums: []
+  input_objects: []
+  objects:
+    - name: AuthUser
+    - name: NewAuthState
+    - name: CurrentAuthState
+    - name: TestPayload
+    - name: SamplePayload
+    - name: JSONPayload
+  scalars: []

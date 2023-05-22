@@ -1,0 +1,21 @@
+on:
+    pull_request:
+        types: [closed]
+
+jobs:
+    delete:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Hasura Cloud Preview Apps
+              uses: hasura/hasura-cloud-preview-apps@v0.1.5
+              with:
+                  name: "preview-app-${{github.event.number}}"
+                  postgresDBConfig: |
+                      POSTGRES_SERVER_CONNECTION_URI=${{secrets.POSTGRES_SERVER_CONNECTION_URI}}
+                      PG_ENV_VARS_FOR_HASURA=PG_DATABASE_URL,PG_DB_URL_2
+                  delete: true
+              env:
+                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}} # ${{ secrets.GITHUB_TOKEN }} is provided by default by GitHub actions
+                  HASURA_CLOUD_ACCESS_TOKEN: ${{secrets.HASURA_CLOUD_ACCESS_TOKEN}} # Hasura Cloud access token to contact Hasura Cloud APIs
