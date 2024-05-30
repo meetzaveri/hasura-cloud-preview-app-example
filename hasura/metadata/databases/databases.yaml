@@ -1,0 +1,16 @@
+- name: pg
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: PG_DATABASE_URL
+      isolation_level: read-committed
+      use_prepared_statements: false
+  health_check:
+    interval: 100
+    retries: 3
+    retry_interval: 2
+    test:
+      sql: SELECT 1
+    timeout: 2
+  tables: "!include pg/tables/tables.yaml"
