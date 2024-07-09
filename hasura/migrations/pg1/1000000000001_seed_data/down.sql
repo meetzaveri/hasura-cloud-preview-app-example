@@ -1,1 +1,0 @@
-select 'this is a dummy statement';

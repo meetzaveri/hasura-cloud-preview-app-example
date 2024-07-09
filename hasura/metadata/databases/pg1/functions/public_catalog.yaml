@@ -1,7 +1,0 @@
-function:
-  schema: public
-  name: catalog
-permissions:
-  - role: user
-  - role: superuser
-  - role: anonymous
